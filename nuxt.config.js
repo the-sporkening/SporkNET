@@ -5,7 +5,7 @@ export default {
   ** Headers of the page
   */
   generate: {
-    dir: 'public'
+    dir: "public"
   },
   head: {
     title: process.env.npm_package_name || '',
