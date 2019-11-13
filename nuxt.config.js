@@ -4,11 +4,8 @@ export default {
   /*
   ** Headers of the page
   */
- generate: {
-  dir: "public"
-},
   head: {
-    title: process.env.npm_package_name || 'The Sporkening',
+    title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -36,8 +33,10 @@ export default {
   ** Nuxt.js dev-modules
   */
   buildModules: [
+    // Doc: https://github.com/nuxt-community/eslint-module
+    '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
-    '@nuxtjs/tailwindcss',
+    '@nuxtjs/tailwindcss'
   ],
   /*
   ** Nuxt.js modules
@@ -45,18 +44,27 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/redirect-module'
+    '@nuxtjs/auth',
+    'nuxt-webpackdashboard'
   ],
-  redirect: {
-    redirect: [
-      { from: '/discord', to: 'https://discord.gg/k9kSs2N' }
-    ]
-  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: 'http://127.0.0.1:3333/api'
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'login', method: 'post', propertyName: 'data.token' },
+          user: { url: 'me', method: 'get', propertyName: 'data' },
+          logout: false
+        }
+      }
+    }
   },
   /*
   ** Build configuration
